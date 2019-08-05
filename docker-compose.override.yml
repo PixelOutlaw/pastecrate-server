@@ -8,13 +8,6 @@ services:
       - cache
     volumes:
       - ./:/home/gradle/project
-      - data:/home/gradle/.gradle
+      - "~/.gradle:/home/gradle/.gradle"
     ports:
       - "8080:8080"
-  cache:
-    image: redis:alpine
-
-volumes:
-  data:
-    external:
-      name: gradle-cache

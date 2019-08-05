@@ -5,4 +5,4 @@ services:
     links:
       - cache
   cache:
-    image: redis/latest
+    image: redis:latest
