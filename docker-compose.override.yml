@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/development/Dockerfile
+    links:
+      - cache
+    volumes:
+      - ./:/home/gradle/project
+      - data:/home/gradle/.gradle
+    ports:
+      - "8080:8080"
+  cache:
+    image: redis:alpine
+
+volumes:
+  data:
+    external:
+      name: gradle-cache

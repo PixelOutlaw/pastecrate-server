@@ -1,6 +1,5 @@
-FROM openjdk:8-jdk-slim
-RUN mkdir /app
-VOLUME /app
-WORKDIR /app
+FROM gradle:5.5.1-jdk8
+RUN mkdir /home/gradle/project
+WORKDIR /home/gradle/project
 EXPOSE 8080
-ENTRYPOINT ["./gradlew", "bootRun"]
+CMD ["gradle", "bootRun"]
