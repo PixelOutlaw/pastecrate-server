@@ -4,7 +4,6 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
 	id("org.springframework.boot") version "2.1.6.RELEASE"
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
-	id("com.palantir.docker") version "0.22.1"
 	kotlin("jvm") version "1.3.41"
 	kotlin("plugin.spring") version "1.3.41"
 }
@@ -51,10 +50,4 @@ val unpack = tasks.create("unpack", Copy::class.java) {
 	dependsOn(bootJar)
 	from(zipTree(bootJar.outputs.files.singleFile))
 	into("${project.buildDir}/dependency")
-}
-
-docker {
-	name = "${project.group}/${bootJar.archiveBaseName.get()}"
-	copySpec.from(unpack.outputs).into("dependency")
-	buildArgs(mapOf("DEPENDENCY" to "dependency"))
 }
