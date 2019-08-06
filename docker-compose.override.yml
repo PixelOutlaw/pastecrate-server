@@ -12,8 +12,6 @@ services:
       - "SPRING_REDIS_URL=redis://redis:6379"
     ports:
       - "8080:8080"
-  rcli:
-    image: "redis:5-alpine"
-    depends_on:
-      - redis
-    command: redis-cli -h redis
+  redis:
+    ports:
+      - "7001:6379"
