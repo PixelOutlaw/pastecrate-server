@@ -3,10 +3,8 @@ WORKDIR /workspace/app
  
 COPY gradlew build.gradle.kts settings.gradle.kts ./
 COPY gradle gradle
-RUN ./gradlew dependencies
- 
 COPY src src
-RUN ./gradlew build unpack -x test
+RUN ./gradlew build -x test
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
  
 FROM openjdk:8-jre-alpine

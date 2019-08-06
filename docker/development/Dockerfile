@@ -1,5 +1,20 @@
-FROM gradle:5.5.1-jdk8
-RUN mkdir /home/gradle/project
-WORKDIR /home/gradle/project
-EXPOSE 8080
-CMD ["gradle", "bootRun"]
+# syntax=docker/dockerfile:experimental
+
+# Standard docker-compose-buildkit doesn't work for this file, you need to use ./bin/docker-compose-buildkit.
+
+FROM openjdk:8-jdk-alpine as build
+WORKDIR /workspace/app
+
+COPY gradlew build.gradle.kts settings.gradle.kts ./
+COPY gradle gradle
+COPY src src
+RUN --mount=type=cache,target=/root/.gradle ./gradlew build -x test
+RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
+
+FROM openjdk:8-jre-alpine
+VOLUME /tmp
+ARG DEPENDENCY=/workspace/app/build/dependency
+COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java","-cp","app:app/lib/*","io.pixeloutlaw.pastecrateserver.PastecrateServerApplicationKt"]

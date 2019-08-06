@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+
+DOCKER_BUILDKIT=1 ./bin/docker-compose-buildkit build --cli
+./bin/docker-compose-buildkit "$@"

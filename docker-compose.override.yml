@@ -4,10 +4,16 @@ services:
     build:
       context: .
       dockerfile: docker/development/Dockerfile
+    depends_on:
+      - redis
     links:
-      - cache
-    volumes:
-      - ./:/home/gradle/project
-      - "~/.gradle:/home/gradle/.gradle"
+      - redis
+    environment:
+      - "SPRING_REDIS_URL=redis://redis:6379"
     ports:
       - "8080:8080"
+  rcli:
+    image: "redis:5-alpine"
+    depends_on:
+      - redis
+    command: redis-cli -h redis

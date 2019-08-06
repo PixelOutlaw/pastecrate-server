@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: pastecrate-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+---
+
+spring:
+  profiles: development
+#  redis:
+#    host: redis
