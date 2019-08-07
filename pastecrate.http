@@ -14,12 +14,11 @@ POST http://localhost:8080
 Content-Type: application/json
 
 {
-  "id": "",
   "language": "text",
   "content": "Hi, Mom!"
 }
 
-> {% client.global.set("paste_id", response.body); %}
+> {% client.global.set("paste_id", response.body.id); %}
 
 ###
 
