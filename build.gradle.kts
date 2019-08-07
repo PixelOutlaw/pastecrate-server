@@ -1,15 +1,24 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
+import pl.allegro.tech.build.axion.release.domain.TagNameSerializationConfig
 
 plugins {
 	id("org.springframework.boot") version "2.1.7.RELEASE"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
+	id("pl.allegro.tech.build.axion-release") version "1.10.2"
 	kotlin("jvm") version "1.3.41"
 	kotlin("plugin.spring") version "1.3.41"
 }
 
+scmVersion {
+	tag(closureOf<TagNameSerializationConfig> {
+		prefix = ""
+	})
+}
+
 group = "io.pixeloutlaw"
-version = "0.0.1-SNAPSHOT"
+version = scmVersion.version
+
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 val developmentOnly by configurations.creating
