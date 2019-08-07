@@ -10,16 +10,23 @@ GET http://localhost:8080
 
 ###
 
-GET http://localhost:8080/people
-
-###
-
-POST http://localhost:8080/people
+POST http://localhost:8080
 Content-Type: application/json
 
 {
-  "firstName": "Richard",
-  "lastName": "Harrah"
+  "id": "",
+  "language": "text",
+  "content": "Hi, Mom!"
 }
+
+> {% client.global.set("paste_id", response.body); %}
+
+###
+
+GET http://localhost:8080/{{paste_id}}
+
+###
+
+DELETE http://localhost:8080/{{paste_id}}
 
 ###
