@@ -9,6 +9,7 @@ plugins {
     id("org.unbroken-dome.test-sets") version "2.1.1"
     kotlin("jvm") version "1.3.41"
     kotlin("plugin.spring") version "1.3.41"
+    kotlin("kapt") version "1.3.41"
 }
 
 scmVersion {
@@ -51,7 +52,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("redis.clients:jedis:2.9.3")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("junit", "junit")
     }

@@ -5,7 +5,10 @@ import org.springframework.stereotype.Component
 
 @Component
 @ConfigurationProperties("pastecrate.generator")
-data class GeneratorConfigurationProperties(val type: Type = Type.DEFAULT, val idLength: Int = 10) {
+class GeneratorConfigurationProperties() {
+    var type: Type = Type.DEFAULT
+    var idLength: Int = 10
+
     enum class Type {
         PHONETIC,
         DEFAULT

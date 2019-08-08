@@ -5,4 +5,6 @@ import org.springframework.stereotype.Component
 
 @Component
 @ConfigurationProperties("pastecrate")
-data class PastecrateConfigurationProperties(val pasteTimeToLive: Long = 60)
+class PastecrateConfigurationProperties {
+    var pasteTimeToLive: Long = 60
+}
